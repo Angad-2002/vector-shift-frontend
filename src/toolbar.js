@@ -28,7 +28,7 @@ const nodeConfigs = [
 
 export const PipelineToolbar = () => {
     return (
-        <div className="fixed left-0 top-0 bottom-0 w-64 bg-dark-400/90 backdrop-blur-xl border-r border-dark-200 z-10 flex flex-col shadow-md">
+        <div className="fixed left-4 top-4 bottom-4 w-64 bg-dark-400/95 backdrop-blur-xl border border-dark-200 z-10 flex flex-col shadow-2xl rounded-2xl overflow-hidden">
             {/* Header */}
             <div className="px-4 py-5 border-b border-dark-200 bg-dark-500/50">
                 <h1 className="text-text-primary text-base font-semibold tracking-tight">
@@ -42,15 +42,15 @@ export const PipelineToolbar = () => {
             {/* Node Palette */}
             <div className="flex-1 overflow-y-auto px-3 py-4 space-y-2">
                 {nodeConfigs.map(({ type, label, icon: Icon }) => (
-                    <DraggableNode 
+                    <DraggableNode
                         key={type}
-                        type={type} 
+                        type={type}
                         label={label}
                         icon={Icon}
                     />
                 ))}
             </div>
-            
+
             {/* Footer - Optional branding or info */}
             <div className="px-4 py-3 border-t border-dark-200 bg-dark-500/50">
                 <p className="text-text-muted text-xs text-center opacity-50">

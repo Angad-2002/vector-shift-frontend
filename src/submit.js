@@ -50,9 +50,9 @@ export const SubmitButton = () => {
 
     return (
         <>
-            <div className="flex items-center justify-center px-6 py-4 bg-dark-400/90 backdrop-blur-xl border-t border-dark-200 shadow-sm">
-                <button 
-                    type="submit" 
+            <div className="flex items-center justify-center px-6 py-4 mx-4 mb-4 bg-dark-400/95 backdrop-blur-xl border border-dark-200 shadow-2xl rounded-2xl">
+                <button
+                    type="submit"
                     onClick={handleSubmit}
                     disabled={isLoading}
                     className="px-8 py-3 bg-gradient-to-r from-teal-600 to-teal-500 text-white font-semibold rounded-xl shadow-md hover:shadow-glow transition-all duration-200 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none border border-teal-500/30"
