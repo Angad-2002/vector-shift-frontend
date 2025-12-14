@@ -1,0 +1,628 @@
+/* App.css - Enhanced styling inspired by chatbot-flow-builder-starter-kit */
+
+/* Color Palette */
+:root {
+  --primary-color: #6366f1;
+  --primary-hover: #818cf8;
+  --background-dark: #020617;
+  --background-card: rgba(2, 6, 23, 0.95);
+  --dark-100: #334155;
+  --dark-200: #1e293b;
+  --dark-300: #0f172a;
+  --dark-400: #0d1425;
+  --dark-500: #0a0f1f;
+  --border-color: rgba(99, 102, 241, 0.25);
+  --border-glow: rgba(99, 102, 241, 0.15);
+  --text-primary: #c7d2fe;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --teal-600: #0d9488;
+  --shadow-sm: 0 0 0 1px rgba(99, 102, 241, 0.15);
+  --shadow-md: 0 20px 40px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 0 20px rgba(99, 102, 241, 0.3);
+}
+
+/* Global Styles */
+* {
+  box-sizing: border-box;
+}
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: radial-gradient(
+      60% 60% at 80% 20%,
+      rgba(99, 102, 241, 0.25),
+      transparent 60%
+    ),
+    #020617;
+}
+
+/* React Flow Canvas - Modern grid pattern */
+.react-flow__pane {
+  background:
+    radial-gradient(circle at 1px 1px, var(--dark-200) 1px, transparent 0);
+  background-size: 32px 32px;
+  background-color: transparent;
+}
+
+/* Base Node Styles - Enhanced from starter kit */
+.base-node,
+.vs-node {
+  background: rgba(2, 6, 23, 0.95) !important;
+  border: 1px solid rgba(99, 102, 241, 0.25) !important;
+  border-radius: 12px !important;
+  box-shadow:
+    0 0 0 1px rgba(99, 102, 241, 0.15),
+    0 20px 40px rgba(0, 0, 0, 0.6) !important;
+  min-width: 220px !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: inherit;
+  overflow: hidden;
+  position: relative;
+  backdrop-filter: blur(20px);
+}
+
+/* Override React Flow default node styles */
+.react-flow__node.base-node,
+.react-flow__node.vs-node {
+  background: rgba(2, 6, 23, 0.95) !important;
+  border: 1px solid rgba(99, 102, 241, 0.25) !important;
+  border-radius: 12px !important;
+  box-shadow:
+    0 0 0 1px rgba(99, 102, 241, 0.15),
+    0 20px 40px rgba(0, 0, 0, 0.6) !important;
+  padding: 0 !important;
+}
+
+.base-node:hover,
+.vs-node:hover {
+  border-color: rgba(99, 102, 241, 0.4);
+  box-shadow:
+    0 0 0 1px rgba(99, 102, 241, 0.25),
+    0 20px 40px rgba(0, 0, 0, 0.6),
+    0 0 20px rgba(99, 102, 241, 0.2);
+}
+
+.base-node.selected,
+.vs-node.selected,
+.react-flow__node.selected {
+  border-color: var(--teal-600) !important;
+  box-shadow:
+    0 0 0 1px rgba(13, 148, 136, 0.5),
+    0 20px 40px rgba(0, 0, 0, 0.6),
+    0 0 30px rgba(13, 148, 136, 0.3) !important;
+}
+
+/* Node Header - Icon + Label structure (starter kit style) */
+.node-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+  border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+  background: rgba(15, 23, 42, 0.5);
+}
+
+.node-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(13, 148, 136, 0.1), transparent 60%);
+  pointer-events: none;
+}
+
+.node-title {
+  position: relative;
+  display: block;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+/* Node Description */
+.node-description {
+  font-size: 12px;
+  color: var(--text-secondary);
+  padding: 0 12px 8px 12px;
+  font-style: normal;
+}
+
+/* Node Body */
+.node-body {
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+
+/* Node Fields */
+.node-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
+}
+
+.node-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.node-field-label {
+  font-size: 10px;
+  font-weight: 500;
+  color: rgba(148, 163, 184, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+/* Input Styles - Refined dark theme */
+.node-input,
+.node-select,
+.node-textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: inherit;
+  background-color: rgba(15, 23, 42, 0.6);
+  color: var(--text-primary);
+  transition: all 0.2s ease;
+}
+
+.node-input:focus,
+.node-select:focus,
+.node-textarea:focus {
+  outline: none;
+  border-color: var(--teal-600);
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
+  background-color: rgba(15, 23, 42, 0.8);
+}
+
+.node-textarea {
+  resize: vertical;
+  min-height: 60px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  line-height: 1.5;
+}
+
+.node-checkbox {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: var(--teal-600);
+}
+
+/* Node Variables Display */
+.node-variables {
+  margin-top: 8px;
+  padding: 6px 10px;
+  background-color: rgba(13, 148, 136, 0.1);
+  border-radius: 6px;
+  font-size: 11px;
+  color: var(--text-secondary);
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  border: 1px solid rgba(13, 148, 136, 0.2);
+}
+
+/* Node Type Specific Colors - Subtle left border accents */
+.input-node .node-header::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: rgba(16, 185, 129, 0.6);
+}
+
+.output-node .node-header::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: rgba(239, 68, 68, 0.6);
+}
+
+.llm-node .node-header::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: rgba(139, 92, 246, 0.6);
+}
+
+.text-node .node-header::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: rgba(59, 130, 246, 0.6);
+}
+
+.conditional-node .node-header::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: rgba(245, 158, 11, 0.6);
+}
+
+.transform-node .node-header::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: rgba(6, 182, 212, 0.6);
+}
+
+.filter-node .node-header::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: rgba(236, 72, 153, 0.6);
+}
+
+.merge-node .node-header::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: rgba(20, 184, 166, 0.6);
+}
+
+.split-node .node-header::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: rgba(168, 85, 247, 0.6);
+}
+
+/* Handle Styles - Matching starter kit */
+.react-flow__handle {
+  width: 10px !important;
+  height: 10px !important;
+  background: var(--dark-500) !important;
+  border: 1.25px solid rgba(255, 255, 255, 0.5) !important; /* light-500 equivalent */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.2s ease !important;
+}
+
+.react-flow__handle:hover {
+  box-shadow: 0 0 0 2px rgba(20, 184, 166, 0.5) !important; /* teal-500/50 ring effect */
+}
+
+/* React Flow Edge Customization */
+.react-flow__node {
+  cursor: move;
+}
+
+/* Remove selection box outline and rectangle */
+.react-flow__node.selected {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.react-flow__node-selected {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Remove selection rectangle (the thin box that appears when selecting) */
+.react-flow__nodesselection-rect {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+.react-flow__nodesselection {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* Remove any selection overlay */
+.react-flow__selection {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* Remove selection background */
+.react-flow__nodesselection-rect,
+.react-flow__nodesselection-rect * {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+/* Edge Styles - Bezier edges matching starter kit */
+.react-flow__edge-path {
+  stroke: var(--teal-600);
+  stroke-width: 2;
+}
+
+.react-flow__edge.selected .react-flow__edge-path {
+  stroke: var(--teal-500);
+  stroke-width: 2;
+}
+
+/* Edge delete button styling */
+.react-flow__edge .react-flow__edge-label {
+  pointer-events: none;
+}
+
+/* React Flow Controls - Custom controls styling */
+.react-flow__controls {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--dark-400);
+  border: 1px solid var(--dark-200);
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 24px;
+}
+
+.react-flow__controls-button {
+  background-color: transparent;
+  border: none;
+  color: var(--text-primary);
+  transition: all 0.2s ease;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+}
+
+.react-flow__controls-button:hover:not(:disabled) {
+  background-color: var(--dark-300);
+}
+
+.react-flow__controls-button:active:not(:disabled) {
+  background-color: var(--dark-200);
+}
+
+.react-flow__controls-button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.react-flow__minimap {
+  background-color: var(--dark-400);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+.react-flow__background {
+  opacity: 0.4;
+}
+
+/* Alert/Modal Styles - Enhanced */
+.alert-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.alert-modal {
+  background: rgba(2, 6, 23, 0.95);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow:
+    0 0 0 1px rgba(99, 102, 241, 0.15),
+    0 20px 40px rgba(0, 0, 0, 0.6);
+  max-width: 400px;
+  width: 90%;
+  animation: slideUp 0.3s ease;
+  backdrop-filter: blur(20px);
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.alert-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+  letter-spacing: -0.01em;
+}
+
+.alert-content {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.alert-stat {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+}
+
+.alert-stat:last-child {
+  border-bottom: none;
+}
+
+.alert-label {
+  font-weight: 500;
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+
+.alert-value {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+.alert-value.success {
+  color: #10b981;
+}
+
+.alert-value.error {
+  color: #ef4444;
+}
+
+.alert-close {
+  width: 100%;
+  padding: 10px;
+  margin-top: 16px;
+  background: linear-gradient(135deg, var(--teal-600) 0%, #14b8a6 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 13px;
+}
+
+.alert-close:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(13, 148, 136, 0.4);
+}
+
+/* Radix UI Dropdown Menu Styles */
+[data-radix-dropdown-menu-content] {
+  z-index: 50;
+}
+
+[data-radix-dropdown-menu-item] {
+  outline: none;
+}
+
+/* Dropdown animations - matching starter kit */
+@keyframes slideInFromTop {
+  from {
+    opacity: 0.4;
+    transform: translateY(-2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInFromBottom {
+  from {
+    opacity: 0.4;
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Base animation class */
+.animate-in {
+  animation-duration: 200ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  animation-fill-mode: both;
+}
+
+/* Slide in from bottom when dropdown opens from top */
+[data-radix-dropdown-menu-content][data-side="top"] {
+  animation-name: slideInFromTop;
+}
+
+/* Slide in from top when dropdown opens from bottom */
+[data-radix-dropdown-menu-content][data-side="bottom"] {
+  animation-name: slideInFromBottom;
+}
+
+/* Exit animations */
+@keyframes slideOutToTop {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes slideOutToBottom {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+}
+
+/* Radix automatically handles exit animations via data-state */
+[data-radix-dropdown-menu-content][data-state="closed"] {
+  animation-name: slideOutToTop, slideOutToBottom;
+  animation-duration: 150ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .base-node,
+  .vs-node {
+    min-width: 180px !important;
+  }
+}
