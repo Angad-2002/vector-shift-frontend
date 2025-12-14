@@ -28,34 +28,18 @@ const nodeConfigs = [
 
 export const PipelineToolbar = () => {
     return (
-        <div className="fixed left-4 top-4 bottom-4 w-64 bg-dark-400/95 backdrop-blur-xl border border-dark-200 z-10 flex flex-col shadow-2xl rounded-2xl overflow-hidden">
-            {/* Header */}
-            <div className="px-4 py-5 border-b border-dark-200 bg-dark-500/50">
-                <h1 className="text-text-primary text-base font-semibold tracking-tight">
-                    Pipeline Builder
-                </h1>
-                <p className="text-text-secondary text-xs mt-1.5 opacity-70">
-                    Drag nodes to canvas
-                </p>
-            </div>
-
-            {/* Node Palette */}
-            <div className="flex-1 overflow-y-auto px-3 py-4 space-y-2">
+        <div className="fixed left-4 top-4 bottom-4 w-20 bg-dark-400/95 backdrop-blur-xl border border-dark-200 z-10 flex flex-col items-center justify-center gap-2 shadow-2xl rounded-2xl overflow-hidden p-2">
+            {/* Node Icons */}
+            <div className="flex flex-col gap-2 items-center">
                 {nodeConfigs.map(({ type, label, icon: Icon }) => (
                     <DraggableNode
                         key={type}
                         type={type}
                         label={label}
                         icon={Icon}
+                        iconOnly
                     />
                 ))}
-            </div>
-
-            {/* Footer - Optional branding or info */}
-            <div className="px-4 py-3 border-t border-dark-200 bg-dark-500/50">
-                <p className="text-text-muted text-xs text-center opacity-50">
-                    Available Nodes: {nodeConfigs.length}
-                </p>
             </div>
         </div>
     );
