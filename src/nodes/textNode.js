@@ -81,11 +81,11 @@ export const TextNode = ({ id, data, selected }) => {
   const isEmpty = (str) => !str || str.trim() === '';
 
   return (
-    <div 
+    <div
       ref={nodeRef}
       data-selected={selected}
-      className={`overflow-hidden border border-dark-200 rounded-xl bg-dark-300/50 shadow-sm backdrop-blur-xl transition divide-y divide-dark-200 ${selected ? 'border-teal-600 ring-1 ring-teal-600/50' : ''}`}
-      style={{ 
+      className={`relative overflow-hidden border border-dark-200 rounded-xl bg-dark-300/50 shadow-sm backdrop-blur-xl transition divide-y divide-dark-200 ${selected ? 'border-teal-600 ring-1 ring-teal-600/50' : ''}`}
+      style={{
         width: '100%',
         minWidth: '256px',
         maxWidth: '500px',
@@ -192,7 +192,10 @@ export const TextNode = ({ id, data, selected }) => {
           id={`${id}-${variable}`}
           className="w-3 h-3 rounded-full bg-teal-500 border-2 border-dark-300 shadow-lg hover:w-4 hover:h-4 hover:bg-teal-400"
           style={{
-            top: `${((index + 1) * 100) / (variables.length + 1)}%`
+            position: 'absolute',
+            left: '-6px',
+            top: `${((index + 1) * 100) / (variables.length + 1)}%`,
+            transform: 'translateY(-50%)'
           }}
           isConnectable={true}
         />
@@ -204,6 +207,12 @@ export const TextNode = ({ id, data, selected }) => {
         position={Position.Right}
         id={`${id}-output`}
         className="w-3 h-3 rounded-full bg-teal-500 border-2 border-dark-300 shadow-lg hover:w-4 hover:h-4 hover:bg-teal-400"
+        style={{
+          position: 'absolute',
+          right: '-6px',
+          top: '50%',
+          transform: 'translateY(-50%)'
+        }}
         isConnectable={true}
       />
     </div>
