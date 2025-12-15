@@ -190,8 +190,9 @@ export const TextNode = ({ id, data, selected }) => {
           type="target"
           position={Position.Left}
           id={`${id}-${variable}`}
-          style={{ 
-            top: `${((index + 1) * 100) / (variables.length + 1)}%` 
+          className="w-3 h-3 rounded-full bg-teal-500 border-2 border-dark-300 shadow-lg hover:w-4 hover:h-4 hover:bg-teal-400"
+          style={{
+            top: `${((index + 1) * 100) / (variables.length + 1)}%`
           }}
           isConnectable={true}
         />
@@ -202,6 +203,7 @@ export const TextNode = ({ id, data, selected }) => {
         type="source"
         position={Position.Right}
         id={`${id}-output`}
+        className="w-3 h-3 rounded-full bg-teal-500 border-2 border-dark-300 shadow-lg hover:w-4 hover:h-4 hover:bg-teal-400"
         isConnectable={true}
       />
     </div>
