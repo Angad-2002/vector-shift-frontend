@@ -17,13 +17,13 @@ export const DraggableNode = ({ type, label, icon: Icon, iconOnly = false }) => 
           <Tooltip.Root>
             <Tooltip.Trigger asChild>
               <div
-                className="flex items-center justify-center w-12 h-12 rounded-lg bg-dark-300 border border-dark-200 cursor-grab active:cursor-grabbing transition-all duration-200 hover:bg-dark-300/80 hover:border-teal-600/50 hover:ring-2 hover:ring-teal-600/30 active:scale-95 group"
+                className="flex items-center justify-center w-9 h-9 rounded-lg bg-dark-300/50 border border-dark-200 cursor-grab active:cursor-grabbing transition-all duration-200 hover:bg-dark-300/80 hover:border-teal-600/50 hover:ring-2 hover:ring-teal-600/30 active:scale-95 group shrink-0"
                 onDragStart={(event) => onDragStart(event, type)}
                 onDragEnd={(event) => (event.target.style.cursor = 'grab')}
                 draggable
               >
                 {Icon && (
-                  <Icon className="w-6 h-6 text-teal-600 group-hover:scale-110 transition-transform" />
+                  <Icon className="w-4 h-4 text-teal-500 group-hover:scale-110 transition-transform" />
                 )}
               </div>
             </Tooltip.Trigger>

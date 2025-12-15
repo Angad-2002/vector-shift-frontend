@@ -3,7 +3,7 @@
 // --------------------------------------------------
 
 import { useState, useRef, useCallback } from 'react';
-import ReactFlow, { Background, MiniMap } from 'reactflow';
+import ReactFlow, { Background, MiniMap, useReactFlow, useStore as useReactFlowStore } from 'reactflow';
 import { useStore } from './store';
 import { shallow } from 'zustand/shallow';
 import { InputNode } from './nodes/inputNode';
@@ -48,6 +48,56 @@ const selector = (state) => ({
   onConnect: state.onConnect,
 });
 
+const ZOOM_DURATION = 500;
+
+function zoomSelector(s) {
+  return {
+    minZoomReached: s.transform[2] <= s.minZoom,
+    maxZoomReached: s.transform[2] >= s.maxZoom,
+  };
+}
+
+// Inner component to access ReactFlow hooks
+function FlowWithControls({ 
+    nodesDraggable, 
+    nodesConnectable, 
+    onNodesDraggableChange, 
+    onNodesConnectableChange,
+    wrappedNodesChange,
+    onNodeDragStopHandler,
+    onNodesChange,
+    showMiniMap,
+    showControlsToolbar,
+    onToggleMiniMap,
+    onToggleControlsToolbar
+}) {
+    const { zoomIn, zoomOut, fitView } = useReactFlow();
+    const { maxZoomReached, minZoomReached } = useReactFlowStore(zoomSelector, shallow);
+
+    return (
+        <>
+            <FlowContent 
+                nodesDraggable={nodesDraggable}
+                nodesConnectable={nodesConnectable}
+                onNodesDraggableChange={onNodesDraggableChange}
+                onNodesConnectableChange={onNodesConnectableChange}
+                onNodesChange={onNodesChange}
+                wrappedNodesChange={wrappedNodesChange}
+                onNodeDragStopHandler={onNodeDragStopHandler}
+                onZoomIn={() => zoomIn({ duration: ZOOM_DURATION })}
+                onZoomOut={() => zoomOut({ duration: ZOOM_DURATION })}
+                onFitView={() => fitView({ duration: ZOOM_DURATION })}
+                minZoomReached={minZoomReached}
+                maxZoomReached={maxZoomReached}
+                showMiniMap={showMiniMap}
+                showControlsToolbar={showControlsToolbar}
+                onToggleMiniMap={onToggleMiniMap}
+                onToggleControlsToolbar={onToggleControlsToolbar}
+            />
+        </>
+    );
+}
+
 export const PipelineUI = () => {
     const reactFlowWrapper = useRef(null);
     const [reactFlowInstance, setReactFlowInstance] = useState(null);
@@ -55,6 +105,8 @@ export const PipelineUI = () => {
     const [nodesConnectable, setNodesConnectable] = useState(true);
     const [wrappedNodesChange, setWrappedNodesChange] = useState(null);
     const [onNodeDragStopHandler, setOnNodeDragStopHandler] = useState(null);
+    const [showMiniMap, setShowMiniMap] = useState(true);
+    const [showControlsToolbar, setShowControlsToolbar] = useState(true);
     const {
       nodes,
       edges,
@@ -140,14 +192,18 @@ export const PipelineUI = () => {
                 fitView
                 nodeOrigin={[0, 0]}
             >
-                <FlowContent 
+                <FlowWithControls 
                     nodesDraggable={nodesDraggable}
                     nodesConnectable={nodesConnectable}
                     onNodesDraggableChange={setNodesDraggable}
                     onNodesConnectableChange={setNodesConnectable}
                     onNodesChange={onNodesChange}
-                    setWrappedNodesChange={setWrappedNodesChange}
-                    setOnNodeDragStop={setOnNodeDragStopHandler}
+                    wrappedNodesChange={wrappedNodesChange}
+                    onNodeDragStopHandler={onNodeDragStopHandler}
+                    showMiniMap={showMiniMap}
+                    showControlsToolbar={showControlsToolbar}
+                    onToggleMiniMap={setShowMiniMap}
+                    onToggleControlsToolbar={setShowControlsToolbar}
                 />
             </ReactFlow>
         </div>

@@ -1,10 +1,10 @@
 // FlowContent.js
 // Inner component to use ReactFlow hooks for auto-adjustment
 
-import { useCallback, useEffect, useRef } from 'react';
-import { Background, MiniMap, useReactFlow } from 'reactflow';
-import CustomControls from './CustomControls';
+import { useCallback, useEffect } from 'react';
+import { Background, MiniMap } from 'reactflow';
 import { useNodeAutoAdjust } from '../hooks/useNodeAutoAdjust';
+import { PipelineToolbar } from '../toolbar';
 
 export default function FlowContent({ 
     nodesDraggable, 
@@ -12,81 +12,39 @@ export default function FlowContent({
     onNodesDraggableChange, 
     onNodesConnectableChange, 
     onNodesChange,
-    setWrappedNodesChange,
-    setOnNodeDragStop
+    wrappedNodesChange,
+    onNodeDragStopHandler,
+    onZoomIn,
+    onZoomOut,
+    onFitView,
+    minZoomReached,
+    maxZoomReached,
+    showMiniMap,
+    showControlsToolbar,
+    onToggleMiniMap,
+    onToggleControlsToolbar
 }) {
     const autoAdjustNode = useNodeAutoAdjust();
-    const { getNodes } = useReactFlow();
-
-    const handleAutoAdjustNodeAfterNodeMeasured = useCallback(
-        (id) => {
-            setTimeout(() => {
-                const node = getNodes().find(n => n.id === id);
-                if (!node) { return; }
-
-                if (node.measured === undefined) {
-                    handleAutoAdjustNodeAfterNodeMeasured(id);
-                    return;
-                }
-
-                autoAdjustNode(node);
-            });
-        },
-        [autoAdjustNode, getNodes],
-    );
-
-    const wrappedHandleNodesChange = useCallback(
-        (changes) => {
-            onNodesChange(changes);
-
-            changes.forEach((change) => {
-                if (change.type === 'dimensions') {
-                    const node = getNodes().find(n => n.id === change.id);
-                    if (node) {
-                        autoAdjustNode(node);
-                    }
-                }
-
-                if (change.type === 'add') {
-                    handleAutoAdjustNodeAfterNodeMeasured(change.item.id);
-                }
-            });
-        },
-        [
-            autoAdjustNode,
-            getNodes,
-            handleAutoAdjustNodeAfterNodeMeasured,
-            onNodesChange,
-        ],
-    );
-
-    const handleNodeDragStop = useCallback(
-        (_, node) => {
-            autoAdjustNode(node);
-        },
-        [autoAdjustNode],
-    );
-
-    // Expose handlers to parent
-    useEffect(() => {
-        if (setWrappedNodesChange) {
-            setWrappedNodesChange(() => wrappedHandleNodesChange);
-        }
-        if (setOnNodeDragStop) {
-            setOnNodeDragStop(() => handleNodeDragStop);
-        }
-    }, [wrappedHandleNodesChange, handleNodeDragStop, setWrappedNodesChange, setOnNodeDragStop]);
 
     return (
         <>
             <Background color="#1e293b" gap={20} />
-            <CustomControls 
+            <PipelineToolbar 
                 nodesDraggable={nodesDraggable}
                 nodesConnectable={nodesConnectable}
                 onNodesDraggableChange={onNodesDraggableChange}
                 onNodesConnectableChange={onNodesConnectableChange}
+                onZoomIn={onZoomIn}
+                onZoomOut={onZoomOut}
+                onFitView={onFitView}
+                minZoomReached={minZoomReached}
+                maxZoomReached={maxZoomReached}
+                showMiniMap={showMiniMap}
+                showControlsToolbar={showControlsToolbar}
+                onToggleMiniMap={onToggleMiniMap}
+                onToggleControlsToolbar={onToggleControlsToolbar}
             />
-            <MiniMap />
+            {showMiniMap && <MiniMap />}
         </>
     );
 }

@@ -4,7 +4,7 @@
 import { useState } from 'react';
 import { Position, useReactFlow } from 'reactflow';
 import { useStore } from '../store';
-import { Settings, Trash2 } from 'lucide-react';
+import { Trash2 } from 'lucide-react';
 import CustomDropdown from '../components/CustomDropdown';
 import CustomHandle from '../components/handles/CustomHandle';
 
@@ -206,19 +206,6 @@ export const BaseNode = ({ id, data, config, selected }) => {
           </div>
 
           <div className="flex shrink-0 items-center gap-x-0.5 pr-0.5">
-            {config.showSettings !== false && (
-              <>
-                <button
-                  type="button"
-                  className="w-7 h-7 flex items-center justify-center border border-transparent rounded-lg bg-transparent outline-none transition active:border-dark-200 active:bg-dark-400/50 hover:bg-dark-100"
-                  onClick={config.onSettingsClick}
-                  title="Settings"
-                >
-                  <Settings className="w-4 h-4 text-light-900/70" />
-                </button>
-                <div className="mx-1 h-4 w-px bg-dark-100" />
-              </>
-            )}
             
             {config.deletable !== false && (
               <button
